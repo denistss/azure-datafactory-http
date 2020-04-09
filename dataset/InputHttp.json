@@ -1,0 +1,17 @@
+{
+	"name": "InputHttp",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LinkedServiceHttpServer1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

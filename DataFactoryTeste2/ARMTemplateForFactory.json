@@ -11,17 +11,13 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureLinkedServiceBlobStorage1'"
 		},
-		"LinkedServiceAzureDatabricks1_accessToken": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accessToken' of 'LinkedServiceAzureDatabricks1'"
-		},
 		"LinkedServiceAzureBatch1_accessKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accessKey' of 'LinkedServiceAzureBatch1'"
 		},
-		"LinkedServiceHttpServer1_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "@item().url"
+		"LinkedServiceAzureDatabricks1_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'LinkedServiceAzureDatabricks1'"
 		},
 		"LinkedServiceAzureBatch1_properties_typeProperties_accountName": {
 			"type": "string",
@@ -33,13 +29,63 @@
 		},
 		"LinkedServiceAzureBatch1_properties_typeProperties_poolName": {
 			"type": "string",
-			"defaultValue": "activity-pool"
+			"defaultValue": "pool_id"
+		},
+		"LinkedServiceHttpServer1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "@item().url"
 		}
 	},
 	"variables": {
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/CopyBetweenBlobs')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Run Python",
+						"type": "Custom",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"command": {
+								"value": "python copy.py",
+								"type": "Expression"
+							},
+							"resourceLinkedService": {
+								"referenceName": "AzureLinkedServiceBlobStorage1",
+								"type": "LinkedServiceReference"
+							},
+							"folderPath": "containerinput",
+							"referenceObjects": {
+								"linkedServices": [],
+								"datasets": []
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "LinkedServiceAzureBatch1",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureLinkedServiceBlobStorage1')]",
+				"[concat(variables('factoryId'), '/linkedServices/LinkedServiceAzureBatch1')]"
+			]
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
@@ -212,6 +258,35 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/SourceFilesDataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Connection to your source files in Azure Blob Store.",
+				"linkedServiceName": {
+					"referenceName": "AzureLinkedServiceBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "Product.csv",
+						"folderPath": "source",
+						"container": "data"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureLinkedServiceBlobStorage1')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/AzureLinkedServiceBlobStorage1')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -223,6 +298,31 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LinkedServiceAzureBatch1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBatch",
+				"typeProperties": {
+					"accountName": "[parameters('LinkedServiceAzureBatch1_properties_typeProperties_accountName')]",
+					"accessKey": {
+						"type": "SecureString",
+						"value": "[parameters('LinkedServiceAzureBatch1_accessKey')]"
+					},
+					"batchUri": "[parameters('LinkedServiceAzureBatch1_properties_typeProperties_batchUri')]",
+					"poolName": "[parameters('LinkedServiceAzureBatch1_properties_typeProperties_poolName')]",
+					"linkedServiceName": {
+						"referenceName": "AzureLinkedServiceBlobStorage1",
+						"type": "LinkedServiceReference"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureLinkedServiceBlobStorage1')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/LinkedServiceAzureDatabricks1')]",
@@ -261,106 +361,6 @@
 				}
 			},
 			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/CopyBetweenBlobs')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Run Python",
-						"type": "Custom",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"command": {
-								"value": "python copy.py",
-								"type": "Expression"
-							},
-							"resourceLinkedService": {
-								"referenceName": "AzureLinkedServiceBlobStorage1",
-								"type": "LinkedServiceReference"
-							},
-							"folderPath": "containerinput",
-							"referenceObjects": {
-								"linkedServices": [],
-								"datasets": []
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "LinkedServiceAzureBatch1",
-							"type": "LinkedServiceReference"
-						}
-					}
-				],
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LinkedServiceAzureBatch1')]",
-				"[concat(variables('factoryId'), '/linkedServices/AzureLinkedServiceBlobStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/LinkedServiceAzureBatch1')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBatch",
-				"typeProperties": {
-					"accountName": "[parameters('LinkedServiceAzureBatch1_properties_typeProperties_accountName')]",
-					"accessKey": {
-						"type": "SecureString",
-						"value": "[parameters('LinkedServiceAzureBatch1_accessKey')]"
-					},
-					"batchUri": "[parameters('LinkedServiceAzureBatch1_properties_typeProperties_batchUri')]",
-					"poolName": "[parameters('LinkedServiceAzureBatch1_properties_typeProperties_poolName')]",
-					"linkedServiceName": {
-						"referenceName": "AzureLinkedServiceBlobStorage1",
-						"type": "LinkedServiceReference"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureLinkedServiceBlobStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SourceFilesDataset')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "Connection to your source files in Azure Blob Store.",
-				"linkedServiceName": {
-					"referenceName": "AzureLinkedServiceBlobStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "Product.csv",
-						"folderPath": "source",
-						"container": "data"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"quoteChar": "\""
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureLinkedServiceBlobStorage1')]"
-			]
 		}
 	]
 }

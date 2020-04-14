@@ -1,0 +1,40 @@
+{
+	"name": "CopyBetweenBlobs",
+	"properties": {
+		"activities": [
+			{
+				"name": "Run Python",
+				"type": "Custom",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"command": {
+						"value": "python copy.py",
+						"type": "Expression"
+					},
+					"resourceLinkedService": {
+						"referenceName": "AzureLinkedServiceBlobStorage1",
+						"type": "LinkedServiceReference"
+					},
+					"folderPath": "containerinput",
+					"referenceObjects": {
+						"linkedServices": [],
+						"datasets": []
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "LinkedServiceAzureBatch1",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"annotations": []
+	}
+}

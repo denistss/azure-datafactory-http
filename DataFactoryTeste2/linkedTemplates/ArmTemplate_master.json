@@ -1,0 +1,91 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "DataFactoryTeste2"
+		},
+		"AzureLinkedServiceBlobStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureLinkedServiceBlobStorage1'"
+		},
+		"LinkedServiceAzureDatabricks1_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'LinkedServiceAzureDatabricks1'"
+		},
+		"LinkedServiceAzureBatch1_accessKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessKey' of 'LinkedServiceAzureBatch1'"
+		},
+		"LinkedServiceHttpServer1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "@item().url"
+		},
+		"LinkedServiceAzureBatch1_properties_typeProperties_accountName": {
+			"type": "string",
+			"defaultValue": "bachteste"
+		},
+		"LinkedServiceAzureBatch1_properties_typeProperties_batchUri": {
+			"type": "string",
+			"defaultValue": "https://bachteste.eastus.batch.azure.com"
+		},
+		"LinkedServiceAzureBatch1_properties_typeProperties_poolName": {
+			"type": "string",
+			"defaultValue": "activity-pool"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AzureLinkedServiceBlobStorage1_connectionString": {
+						"value": "[parameters('AzureLinkedServiceBlobStorage1_connectionString')]"
+					},
+					"LinkedServiceAzureDatabricks1_accessToken": {
+						"value": "[parameters('LinkedServiceAzureDatabricks1_accessToken')]"
+					},
+					"LinkedServiceAzureBatch1_accessKey": {
+						"value": "[parameters('LinkedServiceAzureBatch1_accessKey')]"
+					},
+					"LinkedServiceHttpServer1_properties_typeProperties_url": {
+						"value": "[parameters('LinkedServiceHttpServer1_properties_typeProperties_url')]"
+					},
+					"LinkedServiceAzureBatch1_properties_typeProperties_accountName": {
+						"value": "[parameters('LinkedServiceAzureBatch1_properties_typeProperties_accountName')]"
+					},
+					"LinkedServiceAzureBatch1_properties_typeProperties_batchUri": {
+						"value": "[parameters('LinkedServiceAzureBatch1_properties_typeProperties_batchUri')]"
+					},
+					"LinkedServiceAzureBatch1_properties_typeProperties_poolName": {
+						"value": "[parameters('LinkedServiceAzureBatch1_properties_typeProperties_poolName')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}

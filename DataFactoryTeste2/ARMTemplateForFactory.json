@@ -1,0 +1,366 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "DataFactoryTeste2"
+		},
+		"AzureLinkedServiceBlobStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureLinkedServiceBlobStorage1'"
+		},
+		"LinkedServiceAzureDatabricks1_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'LinkedServiceAzureDatabricks1'"
+		},
+		"LinkedServiceAzureBatch1_accessKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessKey' of 'LinkedServiceAzureBatch1'"
+		},
+		"LinkedServiceHttpServer1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "@item().url"
+		},
+		"LinkedServiceAzureBatch1_properties_typeProperties_accountName": {
+			"type": "string",
+			"defaultValue": "bachteste"
+		},
+		"LinkedServiceAzureBatch1_properties_typeProperties_batchUri": {
+			"type": "string",
+			"defaultValue": "https://bachteste.eastus.batch.azure.com"
+		},
+		"LinkedServiceAzureBatch1_properties_typeProperties_poolName": {
+			"type": "string",
+			"defaultValue": "activity-pool"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "ForEach1",
+						"type": "ForEach",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@json('[{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_01.zip\",\"name\":\"arquivo01.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_02.zip\",\"name\":\"arquivo02.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_03.zip\",\"name\":\"arquivo03.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_04.zip\",\"name\":\"arquivo04.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_05.zip\",\"name\":\"arquivo05.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_06.zip\",\"name\":\"arquivo06.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_07.zip\",\"name\":\"arquivo07.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_08.zip\",\"name\":\"arquivo08.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_09.zip\",\"name\":\"arquivo09.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_10.zip\",\"name\":\"arquivo10.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_11.zip\",\"name\":\"arquivo11.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_12.zip\",\"name\":\"arquivo12.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_13.zip\",\"name\":\"arquivo13.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_14.zip\",\"name\":\"arquivo14.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_15.zip\",\"name\":\"arquivo15.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_16.zip\",\"name\":\"arquivo16.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_17.zip\",\"name\":\"arquivo17.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_18.zip\",\"name\":\"arquivo18.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_19.zip\",\"name\":\"arquivo19.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_20.zip\",\"name\":\"arquivo20.zip\"}]')",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "Copy data1",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "JsonSource",
+											"storeSettings": {
+												"type": "HttpReadSettings",
+												"requestMethod": "GET"
+											}
+										},
+										"sink": {
+											"type": "JsonSink",
+											"storeSettings": {
+												"type": "AzureBlobStorageWriteSettings"
+											},
+											"formatSettings": {
+												"type": "JsonWriteSettings",
+												"quoteAllText": true
+											}
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "InputHttp",
+											"type": "DatasetReference",
+											"parameters": {}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "SaidaBlob",
+											"type": "DatasetReference",
+											"parameters": {}
+										}
+									]
+								}
+							]
+						}
+					}
+				],
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/InputHttp')]",
+				"[concat(variables('factoryId'), '/datasets/SaidaBlob')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pipelinePython')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Notebook1",
+						"type": "DatabricksNotebook",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": {
+								"value": "/helloworld/helloworld",
+								"type": "Expression"
+							},
+							"baseParameters": {
+								"input": {
+									"value": "@pipeline().parameters.name",
+									"type": "Expression"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "LinkedServiceAzureDatabricks1",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"parameters": {
+					"name": {
+						"type": "string"
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LinkedServiceAzureDatabricks1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/InputHttp')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LinkedServiceHttpServer1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "HttpServerLocation"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LinkedServiceHttpServer1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SaidaBlob')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureLinkedServiceBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@item().name",
+							"type": "Expression"
+						},
+						"container": "containerteste"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureLinkedServiceBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureLinkedServiceBlobStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureLinkedServiceBlobStorage1_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LinkedServiceAzureDatabricks1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureDatabricks",
+				"typeProperties": {
+					"domain": "https://eastus.azuredatabricks.net",
+					"accessToken": {
+						"type": "SecureString",
+						"value": "[parameters('LinkedServiceAzureDatabricks1_accessToken')]"
+					},
+					"newClusterNodeType": "Standard_F4s",
+					"newClusterNumOfWorker": "1",
+					"newClusterSparkEnvVars": {
+						"PYSPARK_PYTHON": "/databricks/python3/bin/python3"
+					},
+					"newClusterVersion": "5.5.x-conda-scala2.11"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LinkedServiceHttpServer1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "HttpServer",
+				"typeProperties": {
+					"url": "[parameters('LinkedServiceHttpServer1_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/CopyBetweenBlobs')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Run Python",
+						"type": "Custom",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"command": {
+								"value": "python copy.py",
+								"type": "Expression"
+							},
+							"resourceLinkedService": {
+								"referenceName": "AzureLinkedServiceBlobStorage1",
+								"type": "LinkedServiceReference"
+							},
+							"folderPath": "containerinput",
+							"referenceObjects": {
+								"linkedServices": [],
+								"datasets": []
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "LinkedServiceAzureBatch1",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LinkedServiceAzureBatch1')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureLinkedServiceBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LinkedServiceAzureBatch1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBatch",
+				"typeProperties": {
+					"accountName": "[parameters('LinkedServiceAzureBatch1_properties_typeProperties_accountName')]",
+					"accessKey": {
+						"type": "SecureString",
+						"value": "[parameters('LinkedServiceAzureBatch1_accessKey')]"
+					},
+					"batchUri": "[parameters('LinkedServiceAzureBatch1_properties_typeProperties_batchUri')]",
+					"poolName": "[parameters('LinkedServiceAzureBatch1_properties_typeProperties_poolName')]",
+					"linkedServiceName": {
+						"referenceName": "AzureLinkedServiceBlobStorage1",
+						"type": "LinkedServiceReference"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureLinkedServiceBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SourceFilesDataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Connection to your source files in Azure Blob Store.",
+				"linkedServiceName": {
+					"referenceName": "AzureLinkedServiceBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "Product.csv",
+						"folderPath": "source",
+						"container": "data"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureLinkedServiceBlobStorage1')]"
+			]
+		}
+	]
+}

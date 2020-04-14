@@ -7,12 +7,12 @@
 		"typeProperties": {
 			"accountName": "bachteste",
 			"batchUri": "https://bachteste.eastus.batch.azure.com",
-			"poolName": "activity-pool",
+			"poolName": "pool_id",
 			"linkedServiceName": {
 				"referenceName": "AzureLinkedServiceBlobStorage1",
 				"type": "LinkedServiceReference"
 			},
-			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZVEVTVEUyXzhkNTk1NzEzLTEzNGYtNDBjYy04YzVjLTA2MGE1NTk2NDY0MyINCn0="
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZVEVTVEUyXzM5OWU2MjI5LWE2NTMtNDM2MC04MWIwLTFlMjUxMWJmNzFhNSINCn0="
 		}
 	}
 }

@@ -1,9 +1,9 @@
 {
-	"name": "pipelinePython",
+	"name": "MoveNotebook",
 	"properties": {
 		"activities": [
 			{
-				"name": "Notebook1",
+				"name": "MoveArquivos",
 				"type": "DatabricksNotebook",
 				"dependsOn": [],
 				"policy": {
@@ -16,14 +16,8 @@
 				"userProperties": [],
 				"typeProperties": {
 					"notebookPath": {
-						"value": "/helloworld/helloworld",
+						"value": "/teste/copy-blob",
 						"type": "Expression"
-					},
-					"baseParameters": {
-						"input": {
-							"value": "@pipeline().parameters.name",
-							"type": "Expression"
-						}
 					}
 				},
 				"linkedServiceName": {

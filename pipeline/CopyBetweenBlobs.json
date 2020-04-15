@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"command": {
-						"value": "python copy.py",
+						"value": "python move-blob.py",
 						"type": "Expression"
 					},
 					"resourceLinkedService": {

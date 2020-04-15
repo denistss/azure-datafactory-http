@@ -13,7 +13,17 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"pythonFile": {
+						"value": "/teste/copy-blob.py",
+						"type": "Expression"
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "LinkedServiceAzureDatabricks1",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"annotations": []

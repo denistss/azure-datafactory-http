@@ -18,6 +18,12 @@
 					"notebookPath": {
 						"value": "/teste/copy-blob",
 						"type": "Expression"
+					},
+					"baseParameters": {
+						"input": {
+							"value": "@pipeline().DataFactory",
+							"type": "Expression"
+						}
 					}
 				},
 				"linkedServiceName": {

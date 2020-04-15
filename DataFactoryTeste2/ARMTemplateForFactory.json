@@ -60,7 +60,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"command": {
-								"value": "python copy.py",
+								"value": "python move-blob.py",
 								"type": "Expression"
 							},
 							"resourceLinkedService": {
@@ -84,6 +84,47 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureLinkedServiceBlobStorage1')]",
 				"[concat(variables('factoryId'), '/linkedServices/LinkedServiceAzureBatch1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/MoveNotebook')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "MoveArquivos",
+						"type": "DatabricksNotebook",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": {
+								"value": "/teste/copy-blob",
+								"type": "Expression"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "LinkedServiceAzureDatabricks1",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"parameters": {
+					"name": {
+						"type": "string"
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LinkedServiceAzureDatabricks1')]"
 			]
 		},
 		{
@@ -159,53 +200,6 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/InputHttp')]",
 				"[concat(variables('factoryId'), '/datasets/SaidaBlob')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/pipelinePython')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Notebook1",
-						"type": "DatabricksNotebook",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": {
-								"value": "/helloworld/helloworld",
-								"type": "Expression"
-							},
-							"baseParameters": {
-								"input": {
-									"value": "@pipeline().parameters.name",
-									"type": "Expression"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "LinkedServiceAzureDatabricks1",
-							"type": "LinkedServiceReference"
-						}
-					}
-				],
-				"parameters": {
-					"name": {
-						"type": "string"
-					}
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LinkedServiceAzureDatabricks1')]"
 			]
 		},
 		{

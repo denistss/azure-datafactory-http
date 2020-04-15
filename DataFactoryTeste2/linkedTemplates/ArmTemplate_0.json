@@ -92,13 +92,13 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/pipelinePython')]",
+			"name": "[concat(parameters('factoryName'), '/MoveNotebook')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "Notebook1",
+						"name": "MoveArquivos",
 						"type": "DatabricksNotebook",
 						"dependsOn": [],
 						"policy": {
@@ -111,14 +111,8 @@
 						"userProperties": [],
 						"typeProperties": {
 							"notebookPath": {
-								"value": "/helloworld/helloworld",
+								"value": "/teste/copy-blob",
 								"type": "Expression"
-							},
-							"baseParameters": {
-								"input": {
-									"value": "@pipeline().parameters.name",
-									"type": "Expression"
-								}
 							}
 						},
 						"linkedServiceName": {
@@ -261,7 +255,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"command": {
-								"value": "python copy.py",
+								"value": "python move-blob.py",
 								"type": "Expression"
 							},
 							"resourceLinkedService": {

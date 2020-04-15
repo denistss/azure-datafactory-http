@@ -111,7 +111,7 @@
 							},
 							"baseParameters": {
 								"input": {
-									"value": "@pipeline().DataFactory",
+									"value": "@pipeline().parameters.name",
 									"type": "Expression"
 								}
 							}

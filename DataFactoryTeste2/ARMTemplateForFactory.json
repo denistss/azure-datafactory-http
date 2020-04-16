@@ -360,7 +360,7 @@
 						"type": "SecureString",
 						"value": "[parameters('LinkedServiceAzureDatabricks1_accessToken')]"
 					},
-					"newClusterNodeType": "Standard_F4s",
+					"newClusterNodeType": "Standard_F4s_v2",
 					"newClusterNumOfWorker": "1",
 					"newClusterSparkEnvVars": {
 						"PYSPARK_PYTHON": "/databricks/python3/bin/python3"

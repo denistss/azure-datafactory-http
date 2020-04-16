@@ -11,17 +11,13 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureLinkedServiceBlobStorage1'"
 		},
-		"LinkedServiceAzureDatabricks1_accessToken": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accessToken' of 'LinkedServiceAzureDatabricks1'"
-		},
 		"LinkedServiceAzureBatch1_accessKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accessKey' of 'LinkedServiceAzureBatch1'"
 		},
-		"LinkedServiceHttpServer1_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "@item().url"
+		"LinkedServiceAzureDatabricks1_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'LinkedServiceAzureDatabricks1'"
 		},
 		"LinkedServiceAzureBatch1_properties_typeProperties_accountName": {
 			"type": "string",
@@ -34,6 +30,10 @@
 		"LinkedServiceAzureBatch1_properties_typeProperties_poolName": {
 			"type": "string",
 			"defaultValue": "pool_id"
+		},
+		"LinkedServiceHttpServer1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "@item().url"
 		},
 		"containerUri": {
 			"type": "string",

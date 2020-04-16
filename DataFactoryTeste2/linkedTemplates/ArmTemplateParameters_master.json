@@ -8,14 +8,11 @@
 		"AzureLinkedServiceBlobStorage1_connectionString": {
 			"value": ""
 		},
-		"LinkedServiceAzureDatabricks1_accessToken": {
-			"value": ""
-		},
 		"LinkedServiceAzureBatch1_accessKey": {
 			"value": ""
 		},
-		"LinkedServiceHttpServer1_properties_typeProperties_url": {
-			"value": "@item().url"
+		"LinkedServiceAzureDatabricks1_accessToken": {
+			"value": ""
 		},
 		"LinkedServiceAzureBatch1_properties_typeProperties_accountName": {
 			"value": "bachteste"
@@ -25,6 +22,9 @@
 		},
 		"LinkedServiceAzureBatch1_properties_typeProperties_poolName": {
 			"value": "pool_id"
+		},
+		"LinkedServiceHttpServer1_properties_typeProperties_url": {
+			"value": "@item().url"
 		},
 		"containerUri": {
 			"value": ""

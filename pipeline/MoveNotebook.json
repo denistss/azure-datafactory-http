@@ -15,16 +15,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": {
-						"value": "/teste/copy-blob",
-						"type": "Expression"
-					},
-					"baseParameters": {
-						"input": {
-							"value": "@pipeline().parameters.name",
-							"type": "Expression"
-						}
-					}
+					"notebookPath": "/Users/denis.silvat@sonda.com/teste/copy-blob"
 				},
 				"linkedServiceName": {
 					"referenceName": "LinkedServiceAzureDatabricks1",

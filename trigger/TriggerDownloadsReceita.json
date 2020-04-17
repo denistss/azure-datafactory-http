@@ -2,15 +2,15 @@
 	"name": "TriggerDownloadsReceita",
 	"properties": {
 		"annotations": [],
-		"runtimeState": "Stopped",
+		"runtimeState": "Started",
 		"pipelines": [],
 		"type": "ScheduleTrigger",
 		"typeProperties": {
 			"recurrence": {
 				"frequency": "Minute",
 				"interval": 1,
-				"startTime": "2020-04-17T17:50:00.000Z",
-				"endTime": "2020-04-18T17:51:00.000Z",
+				"startTime": "2020-04-17T18:00:00.000Z",
+				"endTime": "2020-04-17T18:00:00.000Z",
 				"timeZone": "UTC"
 			}
 		}

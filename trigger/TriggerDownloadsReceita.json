@@ -2,7 +2,7 @@
 	"name": "TriggerDownloadsReceita",
 	"properties": {
 		"annotations": [],
-		"runtimeState": "Started",
+		"runtimeState": "Stopped",
 		"pipelines": [
 			{
 				"pipelineReference": {
@@ -17,6 +17,7 @@
 				"frequency": "Minute",
 				"interval": 1,
 				"startTime": "2020-04-17T17:50:00.000Z",
+				"endTime": "2020-04-18T17:51:00.000Z",
 				"timeZone": "UTC"
 			}
 		}

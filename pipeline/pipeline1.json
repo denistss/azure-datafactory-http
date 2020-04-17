@@ -9,7 +9,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@json('[{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_01.zip\",\"name\":\"arquivo01.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_02.zip\",\"name\":\"arquivo02.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_03.zip\",\"name\":\"arquivo03.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_04.zip\",\"name\":\"arquivo04.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_05.zip\",\"name\":\"arquivo05.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_06.zip\",\"name\":\"arquivo06.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_07.zip\",\"name\":\"arquivo07.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_08.zip\",\"name\":\"arquivo08.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_09.zip\",\"name\":\"arquivo09.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_10.zip\",\"name\":\"arquivo10.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_11.zip\",\"name\":\"arquivo11.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_12.zip\",\"name\":\"arquivo12.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_13.zip\",\"name\":\"arquivo13.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_14.zip\",\"name\":\"arquivo14.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_15.zip\",\"name\":\"arquivo15.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_16.zip\",\"name\":\"arquivo16.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_17.zip\",\"name\":\"arquivo17.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_18.zip\",\"name\":\"arquivo18.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_19.zip\",\"name\":\"arquivo19.zip\"},{\"url\":\"http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_20.zip\",\"name\":\"arquivo20.zip\"}]')",
+						"value": "@json('[{\"url\":\"http://www.portaldatransparencia.gov.br/download-de-dados/orcamento-despesa/2020\",\"name\":\"teste1.zip\"}]')",
 						"type": "Expression"
 					},
 					"activities": [
@@ -53,7 +53,7 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "SaidaBlob",
+									"referenceName": "DownloadsReceita_Blob",
 									"type": "DatasetReference"
 								}
 							]

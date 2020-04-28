@@ -1,0 +1,24 @@
+{
+	"name": "Start_ExtracaoTeste",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "ExtracaoCSV",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Hour",
+				"interval": 1,
+				"startTime": "2020-04-28T19:48:00.000Z",
+				"timeZone": "UTC"
+			}
+		}
+	}
+}

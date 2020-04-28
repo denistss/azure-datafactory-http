@@ -1,10 +1,10 @@
 {
-	"name": "MovePython",
+	"name": "ExtracaoCSV",
 	"properties": {
 		"activities": [
 			{
-				"name": "Python1",
-				"type": "DatabricksSparkPython",
+				"name": "NotebookExtracaoCSV",
+				"type": "DatabricksNotebook",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "7.00:00:00",
@@ -15,10 +15,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"pythonFile": {
-						"value": "/teste/copy-blob.py",
-						"type": "Expression"
-					}
+					"notebookPath": "/Users/denis.silvat@sonda.com/teste/CNPJ_OK"
 				},
 				"linkedServiceName": {
 					"referenceName": "LinkedServiceAzureDatabricks1",
